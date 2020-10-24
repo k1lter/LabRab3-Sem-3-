@@ -10,7 +10,7 @@ protected:
 	virtual float CalculatePerimeter() = 0;
 	virtual float CalculateArea() = 0;
 	virtual bool ExistCheck() = 0;
-	enum ExistValues //Значения существования. Просто для удобства
+	enum ExistValues //Значения существования. Просто для удобства.
 	{
 		EXISTS,
 		NOT_EXISTS
