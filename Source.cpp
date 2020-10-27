@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cmath>
-# define M_PI 3.14159265358979323846
+#define M_PI 3.14159265358979323846
 
 //Абстрактный класс Figure
 class Figure
@@ -24,7 +24,7 @@ public:
 //Производный класс Triangle
 class Triangle : public Figure
 {
-	float side_1, side_2, side_3;
+	float side[3];
 	float CalculatePerimeter();
 	float CalculateArea();
 	bool ExistCheck();
@@ -32,9 +32,9 @@ class Triangle : public Figure
 public:
 	Triangle(float side_1, float side_2, float side_3)
 	{
-		this->side_1 = side_1;
-		this->side_2 = side_2;
-		this->side_3 = side_3;
+		this->side[0] = side_1;
+		this->side[1] = side_2;
+		this->side[2] = side_3;
 
 		if (ExistCheck() == EXISTS) // Проверка на существование треугольника
 		{
@@ -90,25 +90,25 @@ float Figure::getPerimeter()
 	return perimeter;
 }
 
-//Определение методов производного класса Triangle
+//Определения методов производного класса Triangle
 float Triangle::CalculatePerimeter()
 {
-	return side_1 + side_2 + side_3;
+	return side[0] + side[1] + side[2];
 }
 float Triangle::CalculateArea()
 {
 	float p = perimeter / 2; //p - полупериметр треугольника
-	return sqrt(p * (p - side_1) * (p - side_2) * (p - side_3));
+	return sqrt(p * (p - side[0]) * (p - side[1]) * (p - side[2]));
 }
 bool Triangle::ExistCheck()
 {
-	if ((side_1 + side_2 >= side_3) && (side_2 + side_3 >= side_1) && (side_1 + side_3 >= side_2))
+	if ((side[0] + side[1] >= side[2]) && (side[1] + side[2] >= side[0]) && (side[0] + side[2] >= side[1]))
 		return EXISTS;
 	else
 		return NOT_EXISTS;
 }
 
-//Определение методов производного класса Parallelogram
+//Определения методов производного класса Parallelogram
 float Parallelogram::CalculatePerimeter()
 {
 	return side_1_3*2 + side_2_4*2;
@@ -129,23 +129,32 @@ bool Parallelogram::ExistCheck()
 int main(void)
 {
 	//Количество объектов классов Triangle и Parallelogram.
-	const unsigned short trianglesQuantity = 2;
-	const unsigned short parallelogramQuantity = 3;
+	const unsigned short TRIANGLE_QUANTITY = 2;
+	const unsigned short PARALLELOGRAM_QUANTITY = 3;
 
 	//Объявление функций нахождения объектов с максимальными необходимыми величинами.
 	Triangle MaxArea(Triangle*);
 	Parallelogram MaxPerimeter(Parallelogram*);
 
 	//Объявление и инициализация объектов
-	Triangle* triangles = new Triangle[trianglesQuantity]{ {2,2,2},{2,3,2} };
-	Parallelogram* parallelograms = new Parallelogram[parallelogramQuantity]{ {2,2,30},{2,5,40},{3,4,71} };
+	Triangle* triangles = new Triangle[TRIANGLE_QUANTITY]
+	{
+		{2,2,2},
+		{2,3,2}
+	};
+	Parallelogram* parallelograms = new Parallelogram[PARALLELOGRAM_QUANTITY]
+	{
+		{2,2,30},
+		{2,5,40},
+		{3,4,71}
+	};
 
 	//Просто вывод информации про объекты
-	for (int i(0);i<trianglesQuantity;i++)
+	for (int i(0);i< TRIANGLE_QUANTITY;i++)
 	{
 		triangles[i].ShowInfo();
 	}
-	for (int i(0); i < parallelogramQuantity; i++)
+	for (int i(0); i < PARALLELOGRAM_QUANTITY; i++)
 	{
 		parallelograms[i].ShowInfo();
 	}
